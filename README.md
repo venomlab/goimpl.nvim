@@ -29,7 +29,11 @@ The simplest way would be to just set new keybinding somewhere in "after plugins
 -- after/plugin/goimpl.lua
 local goimpl = require("goimpl")
 
-vim.keymap.set("n", "<leader>im", function() goimpl.impl() end)
+vim.keymap.set("n", "<leader>im", function()
+    if goimpl.is_go() then -- call impl if current buffer is attached to Go file
+        goimpl.impl()
+    end
+end)
 ```
 
 Better would be to add it to your LSP config on buffer attach.
@@ -41,8 +45,11 @@ lsp_zero.on_attach(function(client, bufnr)
 	local opts = { buffer = bufnr, remap = false }
 
     -- your other keymaps
-    vim.keymap.set("n", "<leader>im", function()
-        require("goimpl").impl()
-    end, opts)
+    local goimpl = require("goimpl")
+    if goimpl.is_go() then -- register keybinding only if it is Go file
+        vim.keymap.set("n", "<leader>im", function()
+            require("goimpl").impl()
+        end, opts)
+    end
 
 ```

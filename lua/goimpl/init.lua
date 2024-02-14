@@ -82,9 +82,6 @@ function M.is_go()
 end
 
 function M.impl()
-	if not M.is_go() then
-		return
-	end
 	local node = M.api_get_node_at_cursor()
 	if not M.api_node_type_valid(node) then
 		M.api_show_error("No type identifier found under cursor")
