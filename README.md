@@ -42,14 +42,15 @@ Example with [lsp-zero.nvim](https://github.com/VonHeikemen/lsp-zero.nvim):
 ```lua
 -- after/plugin/lsp.lua
 lsp_zero.on_attach(function(client, bufnr)
-	local opts = { buffer = bufnr, remap = false }
+    local opts = { buffer = bufnr, remap = false }
 
-    -- your other keymaps
     local goimpl = require("goimpl")
     if goimpl.is_go() then -- register keybinding only if it is Go file
         vim.keymap.set("n", "<leader>im", function()
-            require("goimpl").impl()
+            goimpl.impl()
         end, opts)
     end
+
+    -- your other keymaps
 
 ```
