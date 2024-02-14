@@ -40,7 +40,7 @@ function M.api_get_typedef(var_name, type_name)
 end
 
 function M.api_get_currect_directory()
-	return vim.fn.frameescape(vim.fn.expand("%:p:h"))
+	return vim.fn.fnameescape(vim.fn.expand("%:p:h"))
 end
 
 function M.api_ask_for_prompt(prompt, on_complete)
